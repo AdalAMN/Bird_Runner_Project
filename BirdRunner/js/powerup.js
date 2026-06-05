@@ -1,35 +1,35 @@
 // powerup.js
-// Responsável por: spawnar, mover, verificar coleta e aplicar efeitos de power-ups
+// Responsavel por: spawnar, mover, verificar coleta e aplicar efeitos de power-ups
 
-import { addLife } from './score.js';
+import { addLife } from "./score.js";
 
-// ─── Tipos de power-up disponíveis ───────────────────────────────────────────
+// Tipos de power-up disponiveis
 
 const POWERUP_TYPES = {
   SHIELD: {
-    id:       'shield',
-    emoji:    '🛡️',
-    label:    'Escudo',
-    color:    '#4FC3F7',
-    duration: 3000,   // ms de invencibilidade
+    id: "shield",
+    emoji: "🛡️",
+    label: "Escudo",
+    color: "#4FC3F7",
+    duration: 3000,
   },
   EXTRA_LIFE: {
-    id:       'extra_life',
-    emoji:    '❤️',
-    label:    'Vida Extra',
-    color:    '#EF5350',
-    duration: 0,      // efeito instantâneo, sem duração
+    id: "extra_life",
+    emoji: "❤️",
+    label: "Vida Extra",
+    color: "#EF5350",
+    duration: 0,
   },
   SLOW_MO: {
-    id:       'slow_mo',
-    emoji:    '⏳',
-    label:    'Câmera Lenta',
-    color:    '#FFD54F',
-    duration: 4000,   // ms com gravidade reduzida
+    id: "slow_mo",
+    emoji: "⏳",
+    label: "Câmera Lenta",
+    color: "#FFD54F",
+    duration: 4000,
   },
 };
 
-// ─── Estado interno ───────────────────────────────────────────────────────────
+// Estado interno
 
 /** @type {HTMLElement[]} Power-ups ativos no DOM */
 const activePowerups = [];
@@ -39,21 +39,21 @@ let activeEffect = null;
 
 let spawnTimer = 0;
 
-const SPAWN_INTERVAL = 300;   // frames entre tentativas de spawn
-const SPAWN_CHANCE   = 0.4;   // 40% de chance a cada tentativa
-const SIZE           = 36;    // px — tamanho do elemento no DOM
-const SPEED          = 2;     // px por frame (mais lento que os canos)
+const SPAWN_INTERVAL = 300;
+const SPAWN_CHANCE = 0.4;
+const SIZE = 36;
+const SPEED = 2;
 
-// ─── Funções públicas ─────────────────────────────────────────────────────────
+// Funcoes publicas
 
 /**
  * Reinicia o estado dos power-ups para uma nova partida.
  */
 export function resetPowerups() {
-  activePowerups.forEach(el => el.remove());
+  activePowerups.forEach((el) => el.remove());
   activePowerups.length = 0;
   activeEffect = null;
-  spawnTimer   = 0;
+  spawnTimer = 0;
 }
 
 /**
@@ -62,18 +62,16 @@ export function resetPowerups() {
  * Deve ser chamado pelo main.js enquanto o estado for PLAYING.
  */
 export function updatePowerups() {
-  // 1. Tenta spawnar um novo power-up
   spawnTimer++;
   if (spawnTimer >= SPAWN_INTERVAL) {
     spawnTimer = 0;
     if (Math.random() < SPAWN_CHANCE) _spawnRandom();
   }
 
-  // 2. Move e remove power-ups que saíram da tela
   for (let i = activePowerups.length - 1; i >= 0; i--) {
     const el = activePowerups[i];
     const newLeft = parseFloat(el.style.left) - SPEED;
-    el.style.left = newLeft + 'px';
+    el.style.left = newLeft + "px";
 
     if (newLeft + SIZE < 0) {
       el.remove();
@@ -81,7 +79,6 @@ export function updatePowerups() {
     }
   }
 
-  // 3. Verifica se o efeito ativo expirou
   if (activeEffect && Date.now() >= activeEffect.expiresAt) {
     _removeEffect(activeEffect.type);
     activeEffect = null;
@@ -97,16 +94,15 @@ export function checkPickup(birdEl) {
   const birdRect = birdEl.getBoundingClientRect();
 
   for (let i = activePowerups.length - 1; i >= 0; i--) {
-    const el       = activePowerups[i];
+    const el = activePowerups[i];
     const powerRect = el.getBoundingClientRect();
 
     if (_rectsOverlap(birdRect, powerRect)) {
       const typeId = el.dataset.typeId;
-      const type   = Object.values(POWERUP_TYPES).find(t => t.id === typeId);
+      const type = Object.values(POWERUP_TYPES).find((t) => t.id === typeId);
 
       _applyEffect(type);
 
-      // Animação de coleta antes de remover
       _playCollectAnimation(el);
 
       activePowerups.splice(i, 1);
@@ -120,7 +116,7 @@ export function checkPickup(birdEl) {
  * @returns {boolean}
  */
 export function isShieldActive() {
-  return activeEffect?.type?.id === 'shield';
+  return activeEffect?.type?.id === "shield";
 }
 
 /**
@@ -129,32 +125,32 @@ export function isShieldActive() {
  * @returns {boolean}
  */
 export function isSlowMoActive() {
-  return activeEffect?.type?.id === 'slow_mo';
+  return activeEffect?.type?.id === "slow_mo";
 }
 
-// ─── Funções privadas ─────────────────────────────────────────────────────────
+// Funcoes privadas
 
 /**
  * Spawna um power-up aleatório no lado direito da tela.
  */
 function _spawnRandom() {
-  const container  = document.getElementById('game-container');
+  const container = document.getElementById("game-container");
   const gameHeight = container.offsetHeight;
-  const gameWidth  = container.offsetWidth;
+  const gameWidth = container.offsetWidth;
 
   // Escolhe tipo aleatoriamente
   const types = Object.values(POWERUP_TYPES);
-  const type  = types[Math.floor(Math.random() * types.length)];
+  const type = types[Math.floor(Math.random() * types.length)];
 
   // Posição Y aleatória (evita aparecer nas bordas)
   const topMin = 40;
   const topMax = gameHeight - SIZE - 40;
-  const top    = topMin + Math.random() * (topMax - topMin);
+  const top = topMin + Math.random() * (topMax - topMin);
 
-  const el = document.createElement('div');
-  el.classList.add('powerup');
+  const el = document.createElement("div");
+  el.classList.add("powerup");
   el.dataset.typeId = type.id;
-  el.textContent    = type.emoji;
+  el.textContent = type.emoji;
 
   el.style.cssText = `
     position:    absolute;
@@ -190,12 +186,12 @@ function _applyEffect(type) {
   }
 
   switch (type.id) {
-    case 'extra_life':
-      addLife(); // efeito instantâneo — não guarda estado
+    case "extra_life":
+      addLife();
       break;
 
-    case 'shield':
-    case 'slow_mo':
+    case "shield":
+    case "slow_mo":
       activeEffect = {
         type,
         expiresAt: Date.now() + type.duration,
@@ -210,8 +206,8 @@ function _applyEffect(type) {
  * @param {object} type
  */
 function _removeEffect(type) {
-  const indicator = document.getElementById('powerup-indicator');
-  if (indicator) indicator.style.display = 'none';
+  const indicator = document.getElementById("powerup-indicator");
+  if (indicator) indicator.style.display = "none";
 }
 
 /**
@@ -220,15 +216,15 @@ function _removeEffect(type) {
  * @param {object} type
  */
 function _showEffectIndicator(type) {
-  const indicator = document.getElementById('powerup-indicator');
+  const indicator = document.getElementById("powerup-indicator");
   if (!indicator) return;
 
-  indicator.textContent  = `${type.emoji} ${type.label}`;
-  indicator.style.display = 'block';
+  indicator.textContent = `${type.emoji} ${type.label}`;
+  indicator.style.display = "block";
 
   // Remove automaticamente quando o efeito expirar
   setTimeout(() => {
-    indicator.style.display = 'none';
+    indicator.style.display = "none";
   }, type.duration);
 }
 
@@ -237,9 +233,9 @@ function _showEffectIndicator(type) {
  * @param {HTMLElement} el
  */
 function _playCollectAnimation(el) {
-  el.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
-  el.style.transform  = 'scale(1.8)';
-  el.style.opacity    = '0';
+  el.style.transition = "transform 0.2s ease, opacity 0.2s ease";
+  el.style.transform = "scale(1.8)";
+  el.style.opacity = "0";
 
   setTimeout(() => el.remove(), 200);
 }
@@ -252,9 +248,6 @@ function _playCollectAnimation(el) {
  */
 function _rectsOverlap(a, b) {
   return (
-    a.left   < b.right  &&
-    a.right  > b.left   &&
-    a.top    < b.bottom &&
-    a.bottom > b.top
+    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
   );
 }

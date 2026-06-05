@@ -1,22 +1,22 @@
 // score.js
 // Responsável por: controlar pontos, vidas e atualizar o DOM com esses valores
 
-import { saveHighScore, getHighScore } from './storage.js';
+import { saveHighScore, getHighScore } from "./storage.js";
 
-// ─── Estado interno do módulo ────────────────────────────────────────────────
+// Estado interno do modulo
 
 let currentScore = 0;
 let currentLives = 3;
 
 const MAX_LIVES = 3;
 
-// ─── Configuração dos elementos do DOM ───────────────────────────────────────
+// Configuração dos elementos do DOM
 // Esses IDs precisam existir no index.html
 
-const scoreEl = document.getElementById('score-display');
-const livesEl = document.getElementById('lives-display');
+const scoreEl = document.getElementById("score-display");
+const livesEl = document.getElementById("lives-display");
 
-// ─── Funções públicas ─────────────────────────────────────────────────────────
+// Funcoes publicas
 
 /**
  * Reinicia pontuação e vidas para uma nova partida.
@@ -76,7 +76,7 @@ export function getLives() {
 
 /**
  * Finaliza a partida: salva o high score se necessário.
- * Retorna um objeto com o score final e o melhor score histórico.
+ * Retorna um objeto com o score final e o melhor score historico.
  * @returns {{ score: number, highScore: number, isNewRecord: boolean }}
  */
 export function finalizeScore() {
@@ -88,13 +88,13 @@ export function finalizeScore() {
   }
 
   return {
-    score:       currentScore,
-    highScore:   isNewRecord ? currentScore : previous,
+    score: currentScore,
+    highScore: isNewRecord ? currentScore : previous,
     isNewRecord,
   };
 }
 
-// ─── Funções privadas ─────────────────────────────────────────────────────────
+// Funcoes privadas
 
 /**
  * Atualiza os elementos do DOM com os valores atuais.
@@ -104,8 +104,7 @@ function _render() {
   if (scoreEl) scoreEl.textContent = currentScore;
 
   if (livesEl) {
-    // Exibe corações: ❤️ para vidas restantes, 🖤 para vidas perdidas
     livesEl.textContent =
-      '❤️'.repeat(currentLives) + '🖤'.repeat(MAX_LIVES - currentLives);
+      "❤️".repeat(currentLives) + "🖤".repeat(MAX_LIVES - currentLives);
   }
 }

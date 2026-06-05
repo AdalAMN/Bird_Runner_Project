@@ -1,51 +1,51 @@
 // gameState.js
 // Responsável por: controlar o estado atual do jogo e as configurações de dificuldade
 
-import { getDifficulty } from './storage.js';
+import { getDifficulty } from "./storage.js";
 
-// ─── Enum de estados ──────────────────────────────────────────────────────────
+// Enum de estados
 
 export const GAME_STATE = {
-  MENU:      'menu',
-  PLAYING:   'playing',
-  PAUSED:    'paused',
-  GAME_OVER: 'game_over',
+  MENU: "menu",
+  PLAYING: "playing",
+  PAUSED: "paused",
+  GAME_OVER: "game_over",
 };
 
-// ─── Estado interno ───────────────────────────────────────────────────────────
+// Estado interno
 
 let currentState = GAME_STATE.MENU;
 
-// ─── Configurações por dificuldade ────────────────────────────────────────────
+// Configuracoes por dificuldade
 
 const DIFFICULTY_CONFIGS = {
   easy: {
-    pipeSpeed:     2,
-    pipeGap:       190,
+    pipeSpeed: 2,
+    pipeGap: 190,
     spawnInterval: 110,
-    speedIncrement:  0.0015,  // quanto a velocidade cresce por frame
-    minPipeGap:    150,       // gap mínimo mesmo no nível mais alto
+    speedIncrement: 0.0015,
+    minPipeGap: 150,
   },
   normal: {
-    pipeSpeed:     3,
-    pipeGap:       160,
+    pipeSpeed: 3,
+    pipeGap: 160,
     spawnInterval: 90,
-    speedIncrement:  0.002,
-    minPipeGap:    120,
+    speedIncrement: 0.002,
+    minPipeGap: 120,
   },
   hard: {
-    pipeSpeed:     4,
-    pipeGap:       130,
+    pipeSpeed: 4,
+    pipeGap: 130,
     spawnInterval: 70,
-    speedIncrement:  0.003,
-    minPipeGap:    100,
+    speedIncrement: 0.003,
+    minPipeGap: 100,
   },
 };
 
 // Config "viva" que vai sendo ajustada ao longo da partida
 let activeConfig = { ...DIFFICULTY_CONFIGS.normal };
 
-// ─── Funções públicas ─────────────────────────────────────────────────────────
+// Funcoes publicas
 
 /**
  * Retorna o estado atual do jogo.
@@ -65,7 +65,7 @@ export function changeState(newState) {
 }
 
 /**
- * Retorna a configuração de dificuldade ativa no momento.
+ * Retorna a configuracao de dificuldade ativa no momento.
  * Chamado pelo pipes.js a cada frame para obter velocidade e gap atuais.
  * @returns {{ pipeSpeed, pipeGap, spawnInterval }}
  */
@@ -90,17 +90,17 @@ export function tickDifficulty() {
   // Aumenta a velocidade gradualmente até um teto
   activeConfig.pipeSpeed = Math.min(
     activeConfig.pipeSpeed + activeConfig.speedIncrement,
-    10
+    10,
   );
 
   // Reduz o gap entre os canos conforme o score sobe
   activeConfig.pipeGap = Math.max(
     activeConfig.pipeGap - activeConfig.speedIncrement * 5,
-    activeConfig.minPipeGap
+    activeConfig.minPipeGap,
   );
 }
 
-// ─── Funções privadas ─────────────────────────────────────────────────────────
+// Funcoes privadas
 
 /**
  * Mostra a tela correspondente ao estado e esconde as demais.
@@ -108,12 +108,11 @@ export function tickDifficulty() {
  * @param {string} state
  */
 function _updateScreenVisibility(state) {
-  const screens = document.querySelectorAll('.screen');
-  screens.forEach(screen => {
-    screen.classList.remove('screen--active');
+  const screens = document.querySelectorAll(".screen");
+  screens.forEach((screen) => {
+    screen.classList.remove("screen--active");
   });
 
   const target = document.getElementById(`screen-${state}`);
-  if (target) target.classList.add('screen--active');
+  if (target) target.classList.add("screen--active");
 }
-

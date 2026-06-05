@@ -206,13 +206,16 @@ function _applyEffect(type) {
  * @param {object} type
  */
 function _removeEffect(type) {
+  console.log("[debug] _removeEffect: type =", type?.id);
   const indicator = document.getElementById("powerup-indicator");
   if (indicator) indicator.style.display = "none";
 }
 
 /**
- * Exibe o indicador de power-up ativo na HUD com um timer visual.
+ * Exibe o indicador de power-up ativo na HUD.
  * Requer um elemento <div id="powerup-indicator"> no HTML.
+ * O indicador é escondido por _removeEffect, chamado de updatePowerups quando
+ * o efeito de fato expira — assim o tempo do indicador respeita o pause.
  * @param {object} type
  */
 function _showEffectIndicator(type) {
@@ -221,11 +224,6 @@ function _showEffectIndicator(type) {
 
   indicator.textContent = `${type.emoji} ${type.label}`;
   indicator.style.display = "block";
-
-  // Remove automaticamente quando o efeito expirar
-  setTimeout(() => {
-    indicator.style.display = "none";
-  }, type.duration);
 }
 
 /**

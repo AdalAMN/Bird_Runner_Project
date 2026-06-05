@@ -1,6 +1,8 @@
 // collision.js
 // Responsável por: detectar colisao entre o bird e qualquer cano ou o chao/teto
 
+import { containerEl } from "./dom.js";
+
 // Funcao publica
 
 /**
@@ -20,8 +22,7 @@ export function checkCollision(birdEl, pipes) {
   const birdRect = _getShrunkRect(birdEl, 0.7);
 
   // 1. Colisao com o chao ou teto
-  const container = document.getElementById("game-container");
-  const containerRect = container.getBoundingClientRect();
+  const containerRect = containerEl.getBoundingClientRect();
 
   if (birdRect.bottom >= containerRect.bottom) {
     return { hit: true, reason: "floor" };

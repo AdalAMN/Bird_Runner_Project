@@ -5,7 +5,7 @@ import { isSlowMoActive } from "./powerup.js";
 
 // Referencia ao DOM
 
-const birdEl = document.getElementById("bird");
+export const birdEl = document.getElementById("bird");
 
 // Constantes de fisica
 
@@ -68,15 +68,6 @@ export function updateBird() {
  */
 export function jumpBird() {
   velocity = JUMP_FORCE;
-}
-
-/**
- * Retorna o elemento DOM do passaro.
- * Usado pelo collision.js e pelo checkPickup do powerup.js.
- * @returns {HTMLElement}
- */
-export function getBirdEl() {
-  return birdEl;
 }
 
 // Funcoes privadas

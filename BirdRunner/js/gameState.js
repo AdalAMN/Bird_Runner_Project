@@ -9,7 +9,7 @@ export const GAME_STATE = {
   MENU: "menu",
   PLAYING: "playing",
   PAUSED: "paused",
-  GAME_OVER: "game_over",
+  GAME_OVER: "game-over",
 };
 
 // Estado interno

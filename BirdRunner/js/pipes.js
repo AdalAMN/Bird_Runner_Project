@@ -80,14 +80,6 @@ export function getAllPipes() {
   return activePipes;
 }
 
-/**
- * Retorna quantos pares de canos o pássaro já passou nesta partida.
- * @returns {number}
- */
-export function getPipesPassed() {
-  return pipesPassed;
-}
-
 // Funcoes privadas
 
 /**

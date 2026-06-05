@@ -33,18 +33,6 @@ export function setupInput({ onJump }) {
   containerEl?.addEventListener("touchstart", _handleTouch, { passive: true });
 }
 
-/**
- * Remove todos os listeners registrados.
- * Util para limpeza caso o jogo seja desmontado.
- */
-export function teardownInput() {
-  document.removeEventListener("keydown", _handleKeydown);
-
-  containerEl?.removeEventListener("click", _handleClick);
-
-  containerEl?.removeEventListener("touchstart", _handleTouch);
-}
-
 // Handlers privados
 
 function _handleKeydown(e) {

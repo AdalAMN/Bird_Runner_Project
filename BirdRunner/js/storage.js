@@ -42,10 +42,3 @@ export function getDifficulty() {
   return localStorage.getItem(KEYS.DIFFICULTY) ?? "normal";
 }
 
-/**
- * Apaga todos os dados salvos do jogo (útil para botão "Resetar dados").
- */
-export function clearAll() {
-  Object.values(KEYS).forEach((key) => localStorage.removeItem(key));
-}
-

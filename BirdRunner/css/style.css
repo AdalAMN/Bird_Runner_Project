@@ -191,6 +191,12 @@ body {
   display: flex;
 }
 
+.screen--playing.screen--active {
+  background: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
+}
+
 .screen__title {
   font-size: 36px;
   font-weight: 800;

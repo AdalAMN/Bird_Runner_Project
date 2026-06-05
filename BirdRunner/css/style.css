@@ -1,120 +1,129 @@
-/* ═══════════════════════════════════════════════════════════════
+/* ===========================================================
    style.css — Flappy Bird
    Organização:
    1. Reset e variáveis
    2. Layout base (body, game-container)
-   3. Pássaro
+   3. Passaro
    4. Canos
-   5. Chão
+   5. Chao
    6. HUD (score, vidas, power-up indicator, botão pause)
    7. Telas (screen)
    8. Componentes de UI (botões, result, difficulty)
    9. Power-ups
    10. Animações
-════════════════════════════════════════════════════════════════ */
+=============================================================== */
 
-/* ── 1. Reset e variáveis ──────────────────────────────────────── */
+/* 1. Reset e variaveis */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --sky-top:       #70C5CE;
-  --sky-bottom:    #B8E8ED;
-  --ground-color:  #DED895;
-  --ground-border: #B8A842;
-  --pipe-body:     #73BF2E;
-  --pipe-border:   #4A8A1A;
-  --hud-bg:        rgba(0, 0, 0, 0.25);
-  --screen-bg:     rgba(0, 0, 0, 0.55);
-  --white:         #FFFFFF;
-  --score-font:    'Segoe UI', Arial, sans-serif;
-  --ground-h:      60px;
+  --sky-top: #70c5ce;
+  --sky-bottom: #b8e8ed;
+  --ground-color: #ded895;
+  --ground-border: #b8a842;
+  --pipe-body: #73bf2e;
+  --pipe-border: #4a8a1a;
+  --hud-bg: rgba(0, 0, 0, 0.25);
+  --screen-bg: rgba(0, 0, 0, 0.55);
+  --white: #ffffff;
+  --score-font: "Segoe UI", Arial, sans-serif;
+  --ground-h: 60px;
 }
 
-/* ── 2. Layout base ────────────────────────────────────────────── */
+/* 2. Layout base */
 
 body {
-  display:         flex;
+  display: flex;
   justify-content: center;
-  align-items:     center;
-  min-height:      100vh;
-  background:      #1a1a2e;
-  font-family:     var(--score-font);
+  align-items: center;
+  min-height: 100vh;
+  background: #1a1a2e;
+  font-family: var(--score-font);
 }
 
 #game-container {
-  position:   relative;
-  width:      360px;
-  height:     600px;
-  overflow:   hidden;
-  background: linear-gradient(to bottom, var(--sky-top) 0%, var(--sky-bottom) 100%);
-  border:     3px solid rgba(255,255,255,0.2);
+  position: relative;
+  width: 360px;
+  height: 600px;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--sky-top) 0%,
+    var(--sky-bottom) 100%
+  );
+  border: 3px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  box-shadow:  0 8px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* ── 3. Pássaro ────────────────────────────────────────────────── */
+/* 3. Passaralho */
 
 #bird {
-  position:    absolute;
-  left:        80px;
-  top:         200px;
-  width:       36px;
-  height:      36px;
-  font-size:   28px;
+  position: absolute;
+  left: 80px;
+  top: 200px;
+  width: 36px;
+  height: 36px;
+  font-size: 28px;
   line-height: 36px;
-  text-align:  center;
-  z-index:     10;
-  /* transform é controlado pelo bird.js para rotação */
-  transition:  transform 0.05s linear;
+  text-align: center;
+  z-index: 10;
+  transition: transform 0.05s linear;
 }
 
-/* ── 4. Canos ──────────────────────────────────────────────────── */
+/* 4. Canos */
 
 /* Classe base adicionada pelo pipes.js em _createPipeElement() */
 .pipe {
-  position:   absolute;
-  width:      60px;
+  position: absolute;
+  width: 60px;
   background: var(--pipe-body);
-  border:     2px solid var(--pipe-border);
-  z-index:    5;
+  border: 2px solid var(--pipe-border);
+  z-index: 5;
 }
 
 /* Borda arredondada na ponta de cada cano */
-.pipe--top    { border-radius: 0 0 6px 6px; }
-.pipe--bottom { border-radius: 6px 6px 0 0; }
-
-/* ── 5. Chão ───────────────────────────────────────────────────── */
-
-#ground {
-  position:   absolute;
-  bottom:     0;
-  left:       0;
-  width:      100%;
-  height:     var(--ground-h);
-  background: var(--ground-color);
-  border-top: 4px solid var(--ground-border);
-  z-index:    8;
+.pipe--top {
+  border-radius: 0 0 6px 6px;
+}
+.pipe--bottom {
+  border-radius: 6px 6px 0 0;
 }
 
-/* ── 6. HUD ────────────────────────────────────────────────────── */
+/* 5. Chao */
+
+#ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--ground-h);
+  background: var(--ground-color);
+  border-top: 4px solid var(--ground-border);
+  z-index: 8;
+}
+
+/* 6. HUD */
 
 #hud {
-  position:       absolute;
-  top:            0;
-  left:           0;
-  width:          100%;
-  display:        flex;
-  align-items:    center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding:        8px 12px;
-  background:     var(--hud-bg);
-  z-index:        20;
-  pointer-events: none; /* cliques passam direto para o game-container */
+  padding: 8px 12px;
+  background: var(--hud-bg);
+  z-index: 20;
+  pointer-events: none;
 }
 
 #hud > * {
@@ -122,90 +131,92 @@ body {
 }
 
 #score-display {
-  font-size:   26px;
+  font-size: 26px;
   font-weight: 700;
-  color:       var(--white);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-  min-width:   40px;
-  text-align:  center;
+  color: var(--white);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  min-width: 40px;
+  text-align: center;
 }
 
 #lives-display {
-  font-size:   16px;
+  font-size: 16px;
   letter-spacing: 2px;
 }
 
 #powerup-indicator {
-  font-size:   12px;
+  font-size: 12px;
   font-weight: 600;
-  color:       var(--white);
-  background:  rgba(0,0,0,0.4);
-  padding:     3px 8px;
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px 8px;
   border-radius: 12px;
-  display:     none; /* exibido via JS quando um efeito está ativo */
+  display: none;
 }
 
 #btn-pause {
-  background:  rgba(255,255,255,0.2);
-  border:      none;
-  color:       var(--white);
-  font-size:   16px;
-  width:       28px;
-  height:      28px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
   border-radius: 6px;
-  cursor:      pointer;
+  cursor: pointer;
   line-height: 1;
-  transition:  background 0.15s;
+  transition: background 0.15s;
 }
 
 #btn-pause:hover {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255, 255, 255, 0.35);
 }
 
-/* ── 7. Telas ──────────────────────────────────────────────────── */
+/* 7. Telas */
 
 .screen {
-  display:         none; /* escondido por padrão */
-  position:        absolute;
-  inset:           0;
-  background:      var(--screen-bg);
-  z-index:         30;
-  flex-direction:  column;
-  align-items:     center;
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: var(--screen-bg);
+  z-index: 30;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap:             16px;
-  padding:         24px;
+  gap: 16px;
+  padding: 24px;
   backdrop-filter: blur(2px);
 }
 
 .screen--active {
-  display: flex; /* ativado pelo gameState.js */
+  display: flex;
 }
 
 .screen__title {
-  font-size:   36px;
+  font-size: 36px;
   font-weight: 800;
-  color:       var(--white);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  text-align:  center;
+  color: var(--white);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .screen__highscore {
-  font-size:  14px;
-  color:      rgba(255,255,255,0.75);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
-/* ── 8. Componentes de UI ──────────────────────────────────────── */
+/* 8. Componentes de UI */
 
-/* Botões genéricos */
+/* Botoes genericos */
 .btn {
-  padding:       10px 28px;
-  border:        none;
+  padding: 10px 28px;
+  border: none;
   border-radius: 24px;
-  font-size:     15px;
-  font-weight:   700;
-  cursor:        pointer;
-  transition:    transform 0.1s, opacity 0.1s;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    opacity 0.1s;
   letter-spacing: 0.5px;
 }
 
@@ -214,9 +225,9 @@ body {
 }
 
 .btn--primary {
-  background: #FFD500;
-  color:      #1a1a2e;
-  box-shadow: 0 3px 0 #B89A00;
+  background: #ffd500;
+  color: #1a1a2e;
+  box-shadow: 0 3px 0 #b89a00;
 }
 
 .btn--primary:hover {
@@ -224,105 +235,117 @@ body {
 }
 
 .btn--secondary {
-  background: rgba(255,255,255,0.2);
-  color:      var(--white);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
 }
 
 .btn--secondary:hover {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Seletor de dificuldade */
 .difficulty-selector {
-  display:        flex;
+  display: flex;
   flex-direction: column;
-  align-items:    center;
-  gap:            8px;
+  align-items: center;
+  gap: 8px;
 }
 
 .difficulty-selector__label {
   font-size: 12px;
-  color:     rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .difficulty-selector__btns {
   display: flex;
-  gap:     6px;
+  gap: 6px;
 }
 
 .btn--difficulty {
-  padding:       6px 14px;
+  padding: 6px 14px;
   border-radius: 16px;
-  font-size:     13px;
-  background:    rgba(255,255,255,0.15);
-  color:         var(--white);
-  border:        1.5px solid transparent;
-  transition:    background 0.15s, border-color 0.15s;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  border: 1.5px solid transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .btn--difficulty.active {
-  background:   rgba(255,213,0,0.25);
-  border-color: #FFD500;
-  color:        #FFD500;
+  background: rgba(255, 213, 0, 0.25);
+  border-color: #ffd500;
+  color: #ffd500;
 }
 
 .btn--difficulty:hover:not(.active) {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Resultado na tela de game over */
 .result {
-  width:         100%;
-  background:    rgba(0,0,0,0.3);
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 12px;
-  padding:       12px 16px;
-  display:       flex;
+  padding: 12px 16px;
+  display: flex;
   flex-direction: column;
-  gap:           8px;
+  gap: 8px;
 }
 
 .result__row {
-  display:         flex;
+  display: flex;
   justify-content: space-between;
-  align-items:     center;
+  align-items: center;
 }
 
 .result__label {
   font-size: 13px;
-  color:     rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .result__value {
-  font-size:   22px;
+  font-size: 22px;
   font-weight: 800;
-  color:       var(--white);
+  color: var(--white);
 }
 
 #new-record {
-  display:    none; /* exibido via JS */
-  font-size:  15px;
+  display: none; /* exibido via JS */
+  font-size: 15px;
   font-weight: 700;
-  color:      #FFD500;
-  animation:  pulse 0.6s ease-in-out infinite alternate;
+  color: #ffd500;
+  animation: pulse 0.6s ease-in-out infinite alternate;
 }
 
-/* ── 9. Power-ups ──────────────────────────────────────────────── */
+/* 9. Power-ups */
 
 /* Classe base adicionada pelo powerup.js */
 .powerup {
   z-index: 9;
 }
 
-/* ── 10. Animações ─────────────────────────────────────────────── */
+/* 10. Animacoes */
 
 @keyframes powerup-float {
-  from { transform: translateY(0px);  }
-  to   { transform: translateY(-6px); }
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-6px);
+  }
 }
 
 @keyframes pulse {
-  from { opacity: 1;   transform: scale(1);    }
-  to   { opacity: 0.7; transform: scale(1.05); }
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
 }

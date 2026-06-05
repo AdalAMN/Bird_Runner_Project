@@ -175,23 +175,25 @@ function _spawnRandom() {
 
 /**
  * Aplica o efeito do power-up coletado.
+ * `extra_life` é aditivo: não mexe em `activeEffect`, então shield/slow_mo
+ * ativos continuam contando normalmente. `shield` e `slow_mo` substituem
+ * qualquer efeito anterior (resetando o timer).
  * @param {object} type - Um dos valores de POWERUP_TYPES
  */
 function _applyEffect(type) {
   if (!type) return;
 
-  // Remove efeito anterior se houver
-  if (activeEffect) {
-    _removeEffect(activeEffect.type);
-  }
-
   switch (type.id) {
     case "extra_life":
       addLife();
-      break;
+      return;
 
     case "shield":
     case "slow_mo":
+      if (activeEffect) {
+        _removeEffect(activeEffect.type);
+        activeEffect = null;
+      }
       activeEffect = {
         type,
         expiresAt: Date.now() + type.duration,

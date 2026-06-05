@@ -3,6 +3,7 @@
 
 import { addLife } from "./score.js";
 import { containerEl } from "./dom.js";
+import { rectsOverlap } from "./geometry.js";
 
 // Tipos de power-up disponiveis
 
@@ -98,7 +99,7 @@ export function checkPickup(birdEl) {
     const el = activePowerups[i];
     const powerRect = el.getBoundingClientRect();
 
-    if (_rectsOverlap(birdRect, powerRect)) {
+      if (rectsOverlap(birdRect, powerRect)) {
       const typeId = el.dataset.typeId;
       const type = Object.values(POWERUP_TYPES).find((t) => t.id === typeId);
 
@@ -238,16 +239,4 @@ function _playCollectAnimation(el) {
   el.style.opacity = "0";
 
   setTimeout(() => el.remove(), 200);
-}
-
-/**
- * Verifica sobreposição entre dois DOMRects.
- * @param {DOMRect} a
- * @param {DOMRect} b
- * @returns {boolean}
- */
-function _rectsOverlap(a, b) {
-  return (
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-  );
 }

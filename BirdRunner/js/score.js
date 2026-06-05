@@ -59,22 +59,6 @@ export function loseLife() {
 }
 
 /**
- * Retorna a pontuação atual.
- * @returns {number}
- */
-export function getScore() {
-  return currentScore;
-}
-
-/**
- * Retorna as vidas atuais.
- * @returns {number}
- */
-export function getLives() {
-  return currentLives;
-}
-
-/**
  * Finaliza a partida: salva o high score se necessário.
  * Retorna um objeto com o score final e o melhor score historico.
  * @returns {{ score: number, highScore: number, isNewRecord: boolean }}

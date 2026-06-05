@@ -2,6 +2,7 @@
 // Responsável por: criar, mover, remover canos e detectar passagem pelo passaro
 
 import { getGameConfig } from "./gameState.js";
+import { containerEl } from "./dom.js";
 
 // Estado interno do modulo
 
@@ -94,9 +95,8 @@ export function getPipesPassed() {
  * @param {number} gapSize - Espaço em px entre os dois canos
  */
 function _spawnPair(gapSize) {
-  const container = document.getElementById("game-container");
-  const gameHeight = container.offsetHeight;
-  const gameWidth = container.offsetWidth;
+  const gameHeight = containerEl.offsetHeight;
+  const gameWidth = containerEl.offsetWidth;
 
   // Calcula posicao aleatoria para o gap (abertura entre os canos)
   const maxGapTop = gameHeight - gapSize - MIN_GAP_BOT;
@@ -119,8 +119,8 @@ function _spawnPair(gapSize) {
     role: "bottom",
   });
 
-  container.appendChild(topPipe);
-  container.appendChild(bottomPipe);
+  containerEl.appendChild(topPipe);
+  containerEl.appendChild(bottomPipe);
 
   activePipes.push(topPipe, bottomPipe);
 }

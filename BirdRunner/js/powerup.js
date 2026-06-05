@@ -2,6 +2,7 @@
 // Responsavel por: spawnar, mover, verificar coleta e aplicar efeitos de power-ups
 
 import { addLife } from "./score.js";
+import { containerEl } from "./dom.js";
 
 // Tipos de power-up disponiveis
 
@@ -134,9 +135,8 @@ export function isSlowMoActive() {
  * Spawna um power-up aleatório no lado direito da tela.
  */
 function _spawnRandom() {
-  const container = document.getElementById("game-container");
-  const gameHeight = container.offsetHeight;
-  const gameWidth = container.offsetWidth;
+  const gameHeight = containerEl.offsetHeight;
+  const gameWidth = containerEl.offsetWidth;
 
   // Escolhe tipo aleatoriamente
   const types = Object.values(POWERUP_TYPES);
@@ -169,7 +169,7 @@ function _spawnRandom() {
     animation:   powerup-float 1s ease-in-out infinite alternate;
   `;
 
-  container.appendChild(el);
+  containerEl.appendChild(el);
   activePowerups.push(el);
 }
 

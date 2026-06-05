@@ -135,7 +135,7 @@ function _createPipeElement({ top, height, left, role }) {
 
   el.classList.add("pipe", `pipe--${role}`);
   el.dataset.role = role;
-  el.dataset.scored = "false";
+  el.dataset.scored = "";
 
   el.style.position = "absolute";
   el.style.top = top + "px";

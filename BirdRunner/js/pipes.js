@@ -16,7 +16,7 @@ let pipesPassed = 0;
 
 const PIPE_WIDTH = 60;
 const MIN_GAP_TOP = 80;
-const MIN_GAP_BOT = 80;
+const MIN_GAP_BOTTOM = 80;
 
 // Funcoes publicas
 
@@ -99,7 +99,7 @@ function _spawnPair(gapSize) {
   const gameWidth = containerEl.offsetWidth;
 
   // Calcula posicao aleatoria para o gap (abertura entre os canos)
-  const maxGapTop = gameHeight - gapSize - MIN_GAP_BOT;
+  const maxGapTop = gameHeight - gapSize - MIN_GAP_BOTTOM;
   const gapTop = MIN_GAP_TOP + Math.random() * (maxGapTop - MIN_GAP_TOP);
   const gapBottom = gapTop + gapSize;
 

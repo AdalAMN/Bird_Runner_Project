@@ -2,6 +2,7 @@
 // Responsável por: detectar colisao entre o bird e qualquer cano ou o chao/teto
 
 import { containerEl } from "./dom.js";
+import { rectsOverlap } from "./geometry.js";
 
 // Funcao publica
 
@@ -35,7 +36,7 @@ export function checkCollision(birdEl, pipes) {
   for (const pipe of pipes) {
     const pipeRect = _getShrunkRect(pipe, 0.85);
 
-    if (_rectsOverlap(birdRect, pipeRect)) {
+    if (rectsOverlap(birdRect, pipeRect)) {
       return { hit: true, reason: "pipe" };
     }
   }
@@ -64,19 +65,4 @@ function _getShrunkRect(el, factor) {
     left: rect.left + shrinkX,
     right: rect.right - shrinkX,
   };
-}
-
-/**
- * Verifica se dois retângulos se sobrepõem em ambos os eixos (X e Y).
- * Dois relangulos NAO se sobrepoem se um esta completamente acima,
- * abaixo, a esquerda ou à direita do outro.
- *
- * @param {{ top, bottom, left, right }} a
- * @param {{ top, bottom, left, right }} b
- * @returns {boolean}
- */
-function _rectsOverlap(a, b) {
-  return (
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-  );
 }

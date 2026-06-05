@@ -104,6 +104,7 @@ function _loop() {
  * Inicia ou reinicia uma partida do zero.
  */
 function _startGame() {
+  console.log("[debug] _startGame: estado antes =", getState());
   if (animFrameId) cancelAnimationFrame(animFrameId);
 
   initGameConfig();
@@ -113,6 +114,7 @@ function _startGame() {
   resetScore();
 
   changeState(GAME_STATE.PLAYING);
+  console.log("[debug] _startGame: estado depois =", getState());
   animFrameId = requestAnimationFrame(_loop);
 }
 

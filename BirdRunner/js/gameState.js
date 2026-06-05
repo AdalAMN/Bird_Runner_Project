@@ -60,6 +60,7 @@ export function getState() {
  * @param {string} newState - Um dos valores de GAME_STATE
  */
 export function changeState(newState) {
+  console.log(`[debug] changeState: ${currentState} → ${newState}`);
   currentState = newState;
   _updateScreenVisibility(newState);
 }
@@ -114,5 +115,8 @@ function _updateScreenVisibility(state) {
   });
 
   const target = document.getElementById(`screen-${state}`);
+  console.log(
+    `[debug] _updateScreenVisibility("${state}"): target=${target ? "#" + target.id : "null"} | telas no DOM: [${[...screens].map((s) => s.id).join(", ")}]`,
+  );
   if (target) target.classList.add("screen--active");
 }

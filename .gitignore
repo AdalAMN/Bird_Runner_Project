@@ -1,0 +1,27 @@
+# ─── Worktrees (isolated workspaces) ────────────────────────────
+/.worktrees/
+
+# ─── OS ──────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDEs / editors ─────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── Node (caso adicione build tools no futuro) ─────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ─── Logs e arquivos temporários ────────────────────────────────
+*.log
+.env
+.env.local
+.env.*.local

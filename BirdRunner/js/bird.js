@@ -5,6 +5,7 @@ import { isSlowMoActive } from "./powerup.js";
 
 // Referencia ao DOM
 
+/** @type {HTMLElement} Elemento <div id="bird"> usado para fisica e colisao */
 export const birdEl = document.getElementById("bird");
 
 // Constantes de fisica

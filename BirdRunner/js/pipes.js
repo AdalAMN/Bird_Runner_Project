@@ -14,8 +14,13 @@ let pipesPassed = 0;
 
 // Constantes base (ajustadas pela dificuldade via getGameConfig)
 
+/** Largura em px de cada cano (top e bottom usam o mesmo valor) */
 const PIPE_WIDTH = 60;
+
+/** Espaco minimo em px entre o teto e o inicio do gap (cano de cima) */
 const MIN_GAP_TOP = 80;
+
+/** Espaco minimo em px entre o fim do gap e o chao (cano de baixo) */
 const MIN_GAP_BOTTOM = 80;
 
 // Funcoes publicas

@@ -1,9 +1,9 @@
 // powerup.js
 // Responsavel por: spawnar, mover, verificar coleta e aplicar efeitos de power-ups
 
-import { addLife } from "./score.js";
 import { containerEl } from "./dom.js";
 import { rectsOverlap } from "./geometry.js";
+import { addLife } from "./score.js";
 
 // Tipos de power-up disponiveis
 
@@ -45,6 +45,9 @@ const SPAWN_INTERVAL = 300;
 const SPAWN_CHANCE = 0.4;
 const SIZE = 36;
 const SPEED = 2;
+
+/** Indicador visual de power-up ativo na HUD; cache local para evitar lookup repetido */
+const indicatorEl = document.getElementById("powerup-indicator");
 
 // Funcoes publicas
 
@@ -210,8 +213,7 @@ function _applyEffect(type) {
  */
 function _removeEffect(type) {
   console.log("[debug] _removeEffect: type =", type?.id);
-  const indicator = document.getElementById("powerup-indicator");
-  if (indicator) indicator.style.display = "none";
+  if (indicatorEl) indicatorEl.style.display = "none";
 }
 
 /**
@@ -222,11 +224,10 @@ function _removeEffect(type) {
  * @param {object} type
  */
 function _showEffectIndicator(type) {
-  const indicator = document.getElementById("powerup-indicator");
-  if (!indicator) return;
+  if (!indicatorEl) return;
 
-  indicator.textContent = `${type.emoji} ${type.label}`;
-  indicator.style.display = "block";
+  indicatorEl.textContent = `${type.emoji} ${type.label}`;
+  indicatorEl.style.display = "block";
 }
 
 /**

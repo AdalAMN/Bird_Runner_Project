@@ -35,9 +35,6 @@ export function resetBird() {
 
   birdEl.style.left = INITIAL_X + "px";
   birdEl.style.top = posY + "px";
-
-  // Remove rotação residual de uma partida anterior
-  birdEl.style.transform = "rotate(0deg)";
 }
 
 /**

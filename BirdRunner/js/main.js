@@ -11,7 +11,7 @@ import {
   initGameConfig,
   tickDifficulty,
 } from "./gameState.js";
-import { updateBird, jumpBird, resetBird } from "./bird.js";
+import { updateBird, jumpBird, resetBird, birdEl } from "./bird.js";
 import { updatePipes, getAllPipes, resetPipes } from "./pipes.js";
 import { checkCollision } from "./collision.js";
 import { addPoint, loseLife, resetScore, finalizeScore } from "./score.js";
@@ -26,11 +26,12 @@ import {
 
 // Referencias ao DOM
 
-const birdEl = document.getElementById("bird");
 const btnPlay = document.getElementById("btn-play");
 const btnRestart = document.getElementById("btn-restart");
 const btnPause = document.getElementById("btn-pause");
 const btnResume = document.getElementById("btn-resume");
+const btnQuit = document.getElementById("btn-quit");
+const btnMenu = document.getElementById("btn-menu");
 const difficultyBtns = document.querySelectorAll("[data-difficulty]");
 const finalScoreEl = document.getElementById("final-score");
 const finalHighScoreEl = document.getElementById("final-highscore");
@@ -61,6 +62,9 @@ btnResume?.addEventListener("click", () => {
     _loop(); // retoma o loop
   }
 });
+
+btnQuit?.addEventListener("click", _quitToMenu);
+btnMenu?.addEventListener("click", _quitToMenu);
 
 // Botoes de dificuldade no menu: ex: <button data-difficulty="hard">Difícil</button>
 difficultyBtns.forEach((btn) => {
@@ -116,6 +120,20 @@ function _startGame() {
   changeState(GAME_STATE.PLAYING);
   console.log("[debug] _startGame: estado depois =", getState());
   animFrameId = requestAnimationFrame(_loop);
+}
+
+/**
+ * Encerra a partida atual e volta ao menu principal.
+ * Usado pelo botao "Menu" da tela de pause e da tela de game over.
+ */
+function _quitToMenu() {
+  console.log("[debug] _quitToMenu: estado antes =", getState());
+  if (animFrameId) {
+    cancelAnimationFrame(animFrameId);
+    animFrameId = null;
+  }
+  changeState(GAME_STATE.MENU);
+  console.log("[debug] _quitToMenu: estado depois =", getState());
 }
 
 /**

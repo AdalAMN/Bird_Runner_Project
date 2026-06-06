@@ -1,6 +1,8 @@
 // powerup.js
 // Responsavel por: spawnar, mover, verificar coleta e aplicar efeitos de power-ups
 
+import { containerEl } from "./dom.js";
+import { rectsOverlap } from "./geometry.js";
 import { addLife } from "./score.js";
 
 // Tipos de power-up disponiveis
@@ -43,6 +45,9 @@ const SPAWN_INTERVAL = 300;
 const SPAWN_CHANCE = 0.4;
 const SIZE = 36;
 const SPEED = 2;
+
+/** Indicador visual de power-up ativo na HUD; cache local para evitar lookup repetido */
+const indicatorEl = document.getElementById("powerup-indicator");
 
 // Funcoes publicas
 
@@ -97,7 +102,7 @@ export function checkPickup(birdEl) {
     const el = activePowerups[i];
     const powerRect = el.getBoundingClientRect();
 
-    if (_rectsOverlap(birdRect, powerRect)) {
+    if (rectsOverlap(birdRect, powerRect)) {
       const typeId = el.dataset.typeId;
       const type = Object.values(POWERUP_TYPES).find((t) => t.id === typeId);
 
@@ -134,9 +139,8 @@ export function isSlowMoActive() {
  * Spawna um power-up aleatório no lado direito da tela.
  */
 function _spawnRandom() {
-  const container = document.getElementById("game-container");
-  const gameHeight = container.offsetHeight;
-  const gameWidth = container.offsetWidth;
+  const gameHeight = containerEl.offsetHeight;
+  const gameWidth = containerEl.offsetWidth;
 
   // Escolhe tipo aleatoriamente
   const types = Object.values(POWERUP_TYPES);
@@ -169,29 +173,31 @@ function _spawnRandom() {
     animation:   powerup-float 1s ease-in-out infinite alternate;
   `;
 
-  container.appendChild(el);
+  containerEl.appendChild(el);
   activePowerups.push(el);
 }
 
 /**
  * Aplica o efeito do power-up coletado.
+ * `extra_life` é aditivo: não mexe em `activeEffect`, então shield/slow_mo
+ * ativos continuam contando normalmente. `shield` e `slow_mo` substituem
+ * qualquer efeito anterior (resetando o timer).
  * @param {object} type - Um dos valores de POWERUP_TYPES
  */
 function _applyEffect(type) {
   if (!type) return;
 
-  // Remove efeito anterior se houver
-  if (activeEffect) {
-    _removeEffect(activeEffect.type);
-  }
-
   switch (type.id) {
     case "extra_life":
       addLife();
-      break;
+      return;
 
     case "shield":
     case "slow_mo":
+      if (activeEffect) {
+        _removeEffect(activeEffect.type);
+        activeEffect = null;
+      }
       activeEffect = {
         type,
         expiresAt: Date.now() + type.duration,
@@ -206,26 +212,22 @@ function _applyEffect(type) {
  * @param {object} type
  */
 function _removeEffect(type) {
-  const indicator = document.getElementById("powerup-indicator");
-  if (indicator) indicator.style.display = "none";
+  console.log("[debug] _removeEffect: type =", type?.id);
+  if (indicatorEl) indicatorEl.style.display = "none";
 }
 
 /**
- * Exibe o indicador de power-up ativo na HUD com um timer visual.
+ * Exibe o indicador de power-up ativo na HUD.
  * Requer um elemento <div id="powerup-indicator"> no HTML.
+ * O indicador é escondido por _removeEffect, chamado de updatePowerups quando
+ * o efeito de fato expira — assim o tempo do indicador respeita o pause.
  * @param {object} type
  */
 function _showEffectIndicator(type) {
-  const indicator = document.getElementById("powerup-indicator");
-  if (!indicator) return;
+  if (!indicatorEl) return;
 
-  indicator.textContent = `${type.emoji} ${type.label}`;
-  indicator.style.display = "block";
-
-  // Remove automaticamente quando o efeito expirar
-  setTimeout(() => {
-    indicator.style.display = "none";
-  }, type.duration);
+  indicatorEl.textContent = `${type.emoji} ${type.label}`;
+  indicatorEl.style.display = "block";
 }
 
 /**
@@ -238,16 +240,4 @@ function _playCollectAnimation(el) {
   el.style.opacity = "0";
 
   setTimeout(() => el.remove(), 200);
-}
-
-/**
- * Verifica sobreposição entre dois DOMRects.
- * @param {DOMRect} a
- * @param {DOMRect} b
- * @returns {boolean}
- */
-function _rectsOverlap(a, b) {
-  return (
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-  );
 }

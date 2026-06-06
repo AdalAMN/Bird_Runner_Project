@@ -2,6 +2,7 @@
 // Responsável por: criar, mover, remover canos e detectar passagem pelo passaro
 
 import { getGameConfig } from "./gameState.js";
+import { containerEl } from "./dom.js";
 
 // Estado interno do modulo
 
@@ -13,9 +14,14 @@ let pipesPassed = 0;
 
 // Constantes base (ajustadas pela dificuldade via getGameConfig)
 
+/** Largura em px de cada cano (top e bottom usam o mesmo valor) */
 const PIPE_WIDTH = 60;
+
+/** Espaco minimo em px entre o teto e o inicio do gap (cano de cima) */
 const MIN_GAP_TOP = 80;
-const MIN_GAP_BOT = 80;
+
+/** Espaco minimo em px entre o fim do gap e o chao (cano de baixo) */
+const MIN_GAP_BOTTOM = 80;
 
 // Funcoes publicas
 
@@ -79,14 +85,6 @@ export function getAllPipes() {
   return activePipes;
 }
 
-/**
- * Retorna quantos pares de canos o pássaro já passou nesta partida.
- * @returns {number}
- */
-export function getPipesPassed() {
-  return pipesPassed;
-}
-
 // Funcoes privadas
 
 /**
@@ -94,12 +92,11 @@ export function getPipesPassed() {
  * @param {number} gapSize - Espaço em px entre os dois canos
  */
 function _spawnPair(gapSize) {
-  const container = document.getElementById("game-container");
-  const gameHeight = container.offsetHeight;
-  const gameWidth = container.offsetWidth;
+  const gameHeight = containerEl.offsetHeight;
+  const gameWidth = containerEl.offsetWidth;
 
   // Calcula posicao aleatoria para o gap (abertura entre os canos)
-  const maxGapTop = gameHeight - gapSize - MIN_GAP_BOT;
+  const maxGapTop = gameHeight - gapSize - MIN_GAP_BOTTOM;
   const gapTop = MIN_GAP_TOP + Math.random() * (maxGapTop - MIN_GAP_TOP);
   const gapBottom = gapTop + gapSize;
 
@@ -119,8 +116,8 @@ function _spawnPair(gapSize) {
     role: "bottom",
   });
 
-  container.appendChild(topPipe);
-  container.appendChild(bottomPipe);
+  containerEl.appendChild(topPipe);
+  containerEl.appendChild(bottomPipe);
 
   activePipes.push(topPipe, bottomPipe);
 }

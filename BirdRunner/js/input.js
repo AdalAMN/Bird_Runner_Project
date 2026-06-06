@@ -2,6 +2,8 @@
 // Responsavel por: capturar entradas do usuario (teclado, mouse e touch)
 // e notificar o main.js via callback - nao conhece nenhum outro modulo.
 
+import { containerEl } from "./dom.js";
+
 // Variavel de controle
 
 /** Guarda os callbacks registrados pelo main.js */
@@ -25,30 +27,10 @@ export function setupInput({ onJump }) {
   document.addEventListener("keydown", _handleKeydown);
 
   // Mouse: clique no container do jogo
-  document
-    .getElementById("game-container")
-    ?.addEventListener("click", _handleClick);
+  containerEl?.addEventListener("click", _handleClick);
 
   // Touch: toque na tela (mobile)
-  document
-    .getElementById("game-container")
-    ?.addEventListener("touchstart", _handleTouch, { passive: true });
-}
-
-/**
- * Remove todos os listeners registrados.
- * Util para limpeza caso o jogo seja desmontado.
- */
-export function teardownInput() {
-  document.removeEventListener("keydown", _handleKeydown);
-
-  document
-    .getElementById("game-container")
-    ?.removeEventListener("click", _handleClick);
-
-  document
-    .getElementById("game-container")
-    ?.removeEventListener("touchstart", _handleTouch);
+  containerEl?.addEventListener("touchstart", _handleTouch, { passive: true });
 }
 
 // Handlers privados

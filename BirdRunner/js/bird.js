@@ -5,7 +5,8 @@ import { isSlowMoActive } from "./powerup.js";
 
 // Referencia ao DOM
 
-const birdEl = document.getElementById("bird");
+/** @type {HTMLElement} Elemento <div id="bird"> usado para fisica e colisao */
+export const birdEl = document.getElementById("bird");
 
 // Constantes de fisica
 
@@ -35,9 +36,6 @@ export function resetBird() {
 
   birdEl.style.left = INITIAL_X + "px";
   birdEl.style.top = posY + "px";
-
-  // Remove rotação residual de uma partida anterior
-  birdEl.style.transform = "rotate(0deg)";
 }
 
 /**
@@ -68,15 +66,6 @@ export function updateBird() {
  */
 export function jumpBird() {
   velocity = JUMP_FORCE;
-}
-
-/**
- * Retorna o elemento DOM do passaro.
- * Usado pelo collision.js e pelo checkPickup do powerup.js.
- * @returns {HTMLElement}
- */
-export function getBirdEl() {
-  return birdEl;
 }
 
 // Funcoes privadas

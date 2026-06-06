@@ -99,7 +99,7 @@ export function checkPickup(birdEl) {
     const el = activePowerups[i];
     const powerRect = el.getBoundingClientRect();
 
-      if (rectsOverlap(birdRect, powerRect)) {
+    if (rectsOverlap(birdRect, powerRect)) {
       const typeId = el.dataset.typeId;
       const type = Object.values(POWERUP_TYPES).find((t) => t.id === typeId);
 

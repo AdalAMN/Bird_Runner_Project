@@ -1,27 +1,65 @@
-# Worktrees
-/.worktrees/
+# compiled output
+build/
+tmp
+out-tsc
+*.tsbuildinfo
 
-# OS
+# environment variables
+.env
+.env.local
+.env.*.local
+
+# dependencies
+node_modules/
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# IDEs / editors
-.idea/
-.vscode/
+# OS
 *.swp
 *.swo
 *~
 
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+.cache/
+.local/
 
-# Logs e arquivos temporarios
-*.log
-.env
-.env.local
-.env.*.local
+# Prisma
+/src/generated/prisma
+
+# compiled JS in src (TypeScript source is the source of truth)
+src/**/*.js
+src/**/*.js.map
+
+# logs
+access.log
+
+# Worktrees
+/.worktrees/

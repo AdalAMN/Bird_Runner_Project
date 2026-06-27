@@ -1,0 +1,26 @@
+<section>
+  {{#if rankings.length}}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Maior Pontuação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rankings}}
+          <tr>
+            <td>{{@index}}</td>
+            <td>{{this.userName}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.highestScore}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p>Nenhum dado de ranking disponível.</p>
+  {{/if}}
+</section>

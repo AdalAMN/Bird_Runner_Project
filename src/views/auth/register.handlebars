@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Criar Conta</h2>
+
+        <div id="register-error" class="alert alert-danger" style="display: none;"></div>
+        <div id="register-success" class="alert alert-success" style="display: none;"></div>
+
+        <form id="register-form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" id="name" name="name" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="majorId" class="form-label">Curso</label>
+            <select class="form-select" id="majorId" name="majorId" required>
+              <option value="">Selecione um curso...</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" name="password" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Repetir Senha</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+        </form>
+
+        <p class="text-center mt-3">
+          Já tem conta? <a href="/login">Faça login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Carrega os cursos disponíveis
+  fetch("/majors")
+    .then((res) => res.json())
+    .then((majors) => {
+      const select = document.getElementById("majorId");
+      majors.forEach((major) => {
+        const opt = document.createElement("option");
+        opt.value = major.id;
+        opt.textContent = major.name;
+        select.appendChild(opt);
+      });
+    })
+    .catch(() => {});
+
+  document.getElementById("register-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errorEl = document.getElementById("register-error");
+    const successEl = document.getElementById("register-success");
+    errorEl.style.display = "none";
+    successEl.style.display = "none";
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const majorId = document.getElementById("majorId").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      errorEl.textContent = "As senhas não coincidem";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    try {
+      const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, confirmPassword, majorId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        errorEl.textContent = data.error || "Erro ao cadastrar";
+        errorEl.style.display = "block";
+        return;
+      }
+
+      successEl.textContent = "Cadastro realizado com sucesso! Redirecionando para login...";
+      successEl.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+    } catch (err) {
+      errorEl.textContent = "Erro de conexão com o servidor";
+      errorEl.style.display = "block";
+    }
+  });
+</script>

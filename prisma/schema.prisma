@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+
+model Major {
+  id String @id @default(uuid()) @db.Char(36)
+  code String @unique @db.Char(4)
+  name String @db.VarChar(100)
+  description String? @db.Text()
+  createAt DateTime @default(now()) @map("created_at")
+  updateAt DateTime @updatedAt @map("update_at")
+
+  users User[]
+
+  @@map("majors")
+}
+
+model User {
+  id String @id @default(uuid()) @db.Char(36)
+  name String @db.VarChar(200)
+  email String @unique @db.VarChar(200)
+  password String @db.VarChar(255)
+  majorId String @db.Char(36)
+  major Major @relation(fields: [majorId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  gameSessions GameSession[]
+
+  @@map("users")
+}
+
+model GameSession {
+  id String @id @default(uuid()) @db.Char(36)
+  userId String @db.Char(36)
+  user User @relation(fields: [userId], references: [id])
+  score Int @db.Int
+  playedAt DateTime @default(now()) @map("played_at")
+
+  @@map("game_sessions")
+}

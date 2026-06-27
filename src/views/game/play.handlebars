@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/style.css" />
+
+<div id="game-container">
+  <div id="bird">🐦</div>
+  <div id="ground"></div>
+
+  <div id="hud">
+    <div id="lives-display">❤️❤️❤️</div>
+    <div id="score-display">0</div>
+    <div id="powerup-indicator"></div>
+    <button id="btn-pause" aria-label="Pausar">⏸</button>
+  </div>
+
+  <div id="screen-menu" class="screen screen--active">
+    <h1 class="screen__title">🐦 Flappy Bird</h1>
+    <div class="difficulty-selector">
+      <p class="difficulty-selector__label">Dificuldade</p>
+      <div class="difficulty-selector__btns">
+        <button data-difficulty="easy" class="btn btn--difficulty">Fácil</button>
+        <button data-difficulty="normal" class="btn btn--difficulty active">Normal</button>
+        <button data-difficulty="hard" class="btn btn--difficulty">Difícil</button>
+      </div>
+    </div>
+    <div id="menu-highscore" class="screen__highscore">
+      Recorde: <span id="menu-highscore-value">0</span>
+    </div>
+    <button id="btn-play" class="btn btn--primary">Jogar</button>
+  </div>
+
+  <div id="screen-playing" class="screen screen--playing"></div>
+
+  <div id="screen-paused" class="screen">
+    <h2 class="screen__title">Pausado</h2>
+    <button id="btn-resume" class="btn btn--primary">▶ Continuar</button>
+    <button id="btn-quit" class="btn btn--secondary">Menu</button>
+  </div>
+
+  <div id="screen-game-over" class="screen">
+    <h2 class="screen__title">Game Over</h2>
+    <div class="result">
+      <div class="result__row">
+        <span class="result__label">Pontuação</span>
+        <span class="result__value" id="final-score">0</span>
+      </div>
+      <div class="result__row">
+        <span class="result__label">Recorde</span>
+        <span class="result__value" id="final-highscore">0</span>
+      </div>
+    </div>
+    <div id="new-record">🏆 Novo recorde!</div>
+    <button id="btn-restart" class="btn btn--primary">Jogar novamente</button>
+    <button id="btn-menu" class="btn btn--secondary">Menu</button>
+  </div>
+</div>
+
+<script type="module" src="/js/main.js"></script>

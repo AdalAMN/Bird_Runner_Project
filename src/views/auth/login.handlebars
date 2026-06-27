@@ -1,27 +1,43 @@
 <div class="row justify-content-center">
   <div class="col-md-5">
     <div class="card">
-      <div class="card-body">
-        <h2 class="card-title text-center mb-4">Login</h2>
-
+      <div class="card-header text-center">
+        <h2 class="h4 mb-0">🐦 Login</h2>
+      </div>
+      <div class="card-body p-4">
         <div id="login-error" class="alert alert-danger" style="display: none;"></div>
 
         <form id="login-form">
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required />
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="seu@email.com"
+              required
+            />
           </div>
 
           <div class="mb-3">
             <label for="password" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="password" name="password" required />
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Sua senha"
+              required
+            />
           </div>
 
-          <button type="submit" class="btn btn-primary w-100">Entrar</button>
+          <button type="submit" class="btn btn-primary w-100 mt-2">Entrar</button>
         </form>
 
-        <p class="text-center mt-3">
-          Não tem conta? <a href="/register">Cadastre-se</a>
+        <p class="text-center mt-4 mb-0" style="color: rgba(255,255,255,0.6);">
+          Nao tem conta?
+          <a href="/register">Cadastre-se</a>
         </p>
       </div>
     </div>
@@ -54,7 +70,7 @@
 
       window.location.href = "/";
     } catch (err) {
-      errorEl.textContent = "Erro de conexão com o servidor";
+      errorEl.textContent = "Erro de conexao com o servidor";
       errorEl.style.display = "block";
     }
   });

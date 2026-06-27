@@ -15,14 +15,6 @@
 
 /* 1. Reset e variaveis */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --sky-top: #70c5ce;
   --sky-bottom: #b8e8ed;
@@ -38,15 +30,6 @@
 }
 
 /* 2. Layout base */
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #1a1a2e;
-  font-family: var(--score-font);
-}
 
 #game-container {
   position: relative;

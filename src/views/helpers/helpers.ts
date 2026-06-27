@@ -22,7 +22,27 @@ function listTechnologies(technologies: Technology[]) {
   return `<ul>${list}</ul>`;
 }
 
+function eq(a: unknown, b: unknown): boolean {
+  return a === b;
+}
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+function gte(a: number, b: number): boolean {
+  return a >= b;
+}
+
+function lte(a: number, b: number): boolean {
+  return a <= b;
+}
+
 export default {
   listProfs,
   listTechnologies,
+  eq,
+  add,
+  gte,
+  lte,
 };

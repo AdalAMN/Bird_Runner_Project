@@ -9,13 +9,14 @@ export async function getTop10() {
   });
 
   const rankings = await Promise.all(
-    topScores.map(async (entry) => {
+    topScores.map(async (entry, index) => {
       const user = await prisma.user.findUnique({
         where: { id: entry.userId },
         select: { name: true, email: true },
       });
 
       return {
+        position: index + 1,
         userId: entry.userId,
         userName: user?.name || "Desconhecido",
         email: user?.email || "",

@@ -7,8 +7,8 @@
     "start": "nodemon",
     "deploy": "tsc -p tsconfig.json",
     "start:prod": "node build/index.js",
-    "sass:watch": "sass --watch public/scss/main.scss:public/scss/main.css",
-    "sass:build": "sass public/scss/main.scss public/scss/main.css",
+    "sass:watch": "sass --load-path=node_modules --quiet-deps --silence-deprecation=import --watch public/scss/main.scss:public/scss/main.css",
+    "sass:build": "sass --load-path=node_modules --quiet-deps --silence-deprecation=import public/scss/main.scss public/scss/main.css",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f"

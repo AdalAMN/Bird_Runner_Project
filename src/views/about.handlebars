@@ -1,44 +1,70 @@
 <div class="row justify-content-center">
-  <div class="col-md-8">
+  <div class="col-lg-8">
     <div class="card">
-      <div class="card-body">
-        <h2 class="card-title text-center mb-4">🐦 Sobre o Flappy Bird</h2>
+      <div class="card-header text-center">
+        <h2 class="h4 mb-0">🐦 Sobre o Flappy Bird</h2>
+      </div>
+      <div class="card-body p-4">
+        <!-- Imagem ilustrativa do jogo -->
+        <div class="text-center mb-4">
+          <img src="/img/logo.svg" alt="Flappy Bird Logo" class="img-fluid rounded" style="max-height: 180px;" />
+        </div>
 
-        <p class="lead">
-          O Flappy Bird é um jogo arcade casual desenvolvido originalmente por Dong Nguyen em 2013.
-          O objetivo é simples: controlar um pássaro que voa entre canos verdes sem tocá-los.
+        <p class="lead mb-4" style="color: rgba(255,255,255,0.85);">
+          O Flappy Bird e um jogo arcade casual desenvolvido originalmente por Dong Nguyen em 2013.
+          O objetivo e simples: controlar um passaro que voa entre canos verdes sem toca-los.
         </p>
 
-        <h4 class="mt-4">Como Jogar</h4>
-        <ul>
-          <li>Pressione <strong>Espaço</strong>, <strong>Seta para Cima</strong> ou <strong>clique</strong> para fazer o pássaro voar</li>
-          <li>Evite tocar nos canos e no chão</li>
-          <li>Cada cano que você passa vale 1 ponto</li>
-          <li>Você tem 3 vidas (corações) - cada colisão remove uma vida</li>
-        </ul>
+        <!-- Galeria de imagens -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6 text-center">
+            <img src="/img/bird.svg" alt="Passaro do Flappy Bird" class="img-fluid rounded about-img" />
+            <p class="mt-2 mb-0" style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">O passaro</p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="/img/pipes.svg" alt="Canos do Flappy Bird" class="img-fluid rounded about-img" />
+            <p class="mt-2 mb-0" style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">Os canos</p>
+          </div>
+        </div>
 
-        <h4 class="mt-4">Dificuldades</h4>
-        <ul>
-          <li><strong>Fácil:</strong> Canos mais espaçosos e velocidade menor</li>
-          <li><strong>Normal:</strong> Desafio equilibrado</li>
-          <li><strong>Difícil:</strong> Canos apertados e velocidade alta</li>
-        </ul>
+        <div class="about-section">
+          <h4>Como Jogar</h4>
+          <ul>
+            <li>Pressione <strong>Espaco</strong>, <strong>Seta para Cima</strong> ou <strong>clique</strong> para fazer o passaro voar</li>
+            <li>Evite tocar nos canos e no chao</li>
+            <li>Cada cano que voce passa vale 1 ponto</li>
+            <li>Voce tem 3 vidas (coracoes) - cada colisao remove uma vida</li>
+          </ul>
+        </div>
 
-        <h4 class="mt-4">Power-ups</h4>
-        <ul>
-          <li>🛡️ <strong>Escudo:</strong> Protege de uma colisão (3 segundos)</li>
-          <li>❤️ <strong>Vida Extra:</strong> Ganhe uma vida adicional</li>
-          <li>🐢 <strong>Slow-Mo:</strong> Reduz a gravidade (4 segundos)</li>
-        </ul>
+        <div class="about-section">
+          <h4>Dificuldades</h4>
+          <ul>
+            <li><strong>Facil:</strong> Canos mais espacosos e velocidade menor</li>
+            <li><strong>Normal:</strong> Desafio equilibrado</li>
+            <li><strong>Dificil:</strong> Canos apertados e velocidade alta</li>
+          </ul>
+        </div>
 
-        <h4 class="mt-4">Tecnologias Utilizadas</h4>
-        <ul>
-          <li>Backend: Express.js com TypeScript</li>
-          <li>Banco de Dados: MariaDB com Prisma ORM</li>
-          <li>Frontend: HTML5, CSS3, JavaScript (ES Modules)</li>
-          <li>Templates: Handlebars</li>
-          <li>Estilo: Bootstrap 5</li>
-        </ul>
+        <div class="about-section">
+          <h4>Power-ups</h4>
+          <ul>
+            <li>🛡️ <strong>Escudo:</strong> Protege de uma colisao (3 segundos)</li>
+            <li>❤️ <strong>Vida Extra:</strong> Ganhe uma vida adicional</li>
+            <li>🐢 <strong>Slow-Mo:</strong> Reduz a gravidade (4 segundos)</li>
+          </ul>
+        </div>
+
+        <div class="about-section mb-0">
+          <h4>Tecnologias Utilizadas</h4>
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <span class="tech-badge">Express.js + TypeScript</span>
+            <span class="tech-badge">MariaDB + Prisma</span>
+            <span class="tech-badge">HTML5 / CSS3 / JS</span>
+            <span class="tech-badge">Handlebars</span>
+            <span class="tech-badge">Bootstrap 5</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

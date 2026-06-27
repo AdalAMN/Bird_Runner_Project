@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#70c5ce"/>
+      <stop offset="100%" style="stop-color:#b8e8ed"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="16" fill="url(#sky)"/>
+  <!-- Bird body -->
+  <ellipse cx="100" cy="95" rx="32" ry="26" fill="#f4c542"/>
+  <ellipse cx="100" cy="95" rx="32" ry="26" fill="none" stroke="#d4a017" stroke-width="2"/>
+  <!-- Wing -->
+  <ellipse cx="85" cy="90" rx="18" ry="12" fill="#e8b730" transform="rotate(-15 85 90)"/>
+  <!-- Eye white -->
+  <circle cx="115" cy="85" r="10" fill="white"/>
+  <!-- Eye pupil -->
+  <circle cx="118" cy="85" r="5" fill="#1a1a2e"/>
+  <!-- Beak -->
+  <polygon points="130,92 148,97 130,104" fill="#e85d3a"/>
+  <!-- Tail -->
+  <polygon points="68,85 50,75 52,95" fill="#d4a017"/>
+</svg>

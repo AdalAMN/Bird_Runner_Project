@@ -1,26 +1,48 @@
-<section>
-  {{#if rankings.length}}
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Maior Pontuação</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each rankings}}
-          <tr>
-            <td>{{@index}}</td>
-            <td>{{this.userName}}</td>
-            <td>{{this.email}}</td>
-            <td>{{this.highestScore}}</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  {{else}}
-    <p>Nenhum dado de ranking disponível.</p>
-  {{/if}}
-</section>
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header text-center">
+        <h2 class="h4 mb-0">🏆 Ranking</h2>
+      </div>
+      <div class="card-body p-0">
+        {{#if rankings.length}}
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">#</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th class="text-end" style="width: 140px;">Pontuacao</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each rankings}}
+                  <tr>
+                    <td>
+                      {{#if (eq this.position 1)}}🥇
+                      {{else if (eq this.position 2)}}🥈
+                      {{else if (eq this.position 3)}}🥉
+                      {{else}}{{this.position}}
+                      {{/if}}
+                    </td>
+                    <td>{{this.userName}}</td>
+                    <td style="color: rgba(255,255,255,0.5);">{{this.email}}</td>
+                    <td class="text-end">
+                      <strong>{{this.highestScore}}</strong>
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        {{else}}
+          <div class="empty-state">
+            <span class="empty-icon">🎮</span>
+            <p>Nenhum dado de ranking disponivel.</p>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
